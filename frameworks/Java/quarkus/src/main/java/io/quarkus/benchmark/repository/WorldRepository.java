@@ -13,7 +13,6 @@ public class WorldRepository {
     @Inject
     EntityManager em;
 
-    @Transactional
     public World find(int id) {
         return em.find(World.class, id);
     }

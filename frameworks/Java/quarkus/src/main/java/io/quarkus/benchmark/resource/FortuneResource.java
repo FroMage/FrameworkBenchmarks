@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -41,16 +39,14 @@ public class FortuneResource {
 
     @GET
     @Path("/fortunes")
-    public CompletionStage<String> fortunes() {
-        return CompletableFuture.supplyAsync(() -> {
-            List<Fortune> fortunes = new ArrayList<>(repository.findAll());
-            fortunes.add(new Fortune(0, "Additional fortune added at request time."));
-            fortunes.sort(Comparator.comparing(fortune -> fortune.getMessage()));
+    public String fortunes() {
+        List<Fortune> fortunes = new ArrayList<>(repository.findAll());
+        fortunes.add(new Fortune(0, "Additional fortune added at request time."));
+        fortunes.sort(Comparator.comparing(fortune -> fortune.getMessage()));
 
-            StringWriter writer = new StringWriter();
-            template.execute(writer, Collections.singletonMap("fortunes", fortunes));
+        StringWriter writer = new StringWriter();
+        template.execute(writer, Collections.singletonMap("fortunes", fortunes));
 
-            return writer.toString();
-        });
+        return writer.toString();
     }
 }
