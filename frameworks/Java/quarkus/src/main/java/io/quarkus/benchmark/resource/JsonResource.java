@@ -1,12 +1,11 @@
 package io.quarkus.benchmark.resource;
 
+import java.util.Map;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 
 @Path("/json")
 public class JsonResource {
@@ -15,7 +14,7 @@ public class JsonResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public CompletionStage<Map<String, String>> json() {
-        return CompletableFuture.supplyAsync(() -> Map.of(MESSAGE, HELLO));
+    public Map<String, String> json() {
+        return Map.of(MESSAGE, HELLO);
     }
 }
