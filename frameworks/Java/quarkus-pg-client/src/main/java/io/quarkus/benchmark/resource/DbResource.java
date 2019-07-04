@@ -1,6 +1,5 @@
 package io.quarkus.benchmark.resource;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -52,14 +51,14 @@ public class DbResource {
         var worlds = new CompletableFuture[parseQueryCount(queries)];
         var ret = new World[worlds.length];
         Arrays.setAll(worlds, i -> {
-            return randomWorld().thenCompose(w -> {
+            return randomWorld().thenApply(w -> {
                 w.setRandomNumber(randomWorldNumber());
                 ret[i] = w;
-                return worldRepository.update(w);
+                return w;
             });
         });
 
-        return CompletableFuture.allOf(worlds).thenApply(v -> Arrays.asList(ret));
+        return CompletableFuture.allOf(worlds).thenCompose(v -> worldRepository.update(ret)).thenApply(v -> Arrays.asList(ret));
     }
 
     private CompletionStage<World> randomWorld() {

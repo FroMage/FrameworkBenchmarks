@@ -8,17 +8,16 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import io.quarkus.benchmark.model.Fortune;
-import io.reactiverse.axle.pgclient.PgPool;
 import io.reactiverse.pgclient.Row;
 
 @ApplicationScoped
 public class FortuneRepository {
 
     @Inject
-    PgPool pgPool;
+    PgClients clients;
 
     public CompletionStage<List<Fortune>> findAll() {
-        return pgPool.preparedQuery("SELECT * FROM Fortune")
+        return clients.getClient().preparedQuery("SELECT * FROM Fortune")
                 .thenApply(rowset -> {
                     List<Fortune> ret = new ArrayList<>(rowset.size());
                     for(Row r : rowset.getDelegate()) {

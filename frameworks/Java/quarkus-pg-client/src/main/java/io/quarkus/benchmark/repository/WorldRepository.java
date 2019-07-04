@@ -1,16 +1,14 @@
 package io.quarkus.benchmark.repository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 
 import io.quarkus.benchmark.model.World;
-import io.reactiverse.axle.pgclient.PgPool;
 import io.reactiverse.axle.pgclient.Row;
 import io.reactiverse.axle.pgclient.Tuple;
 
@@ -18,23 +16,23 @@ import io.reactiverse.axle.pgclient.Tuple;
 public class WorldRepository {
 
     @Inject
-    PgPool pool;
+    PgClients clients;
 
     public CompletionStage<World> find(int id) {
-        return pool.preparedQuery("SELECT * FROM World WHERE id = $1", Tuple.of(id))
+        return clients.getClient().preparedQuery("SELECT * FROM World WHERE id = $1", Tuple.of(id))
                 .thenApply(rowset -> {
-                    switch(rowset.size()) {
-                    case 1: {
-                        Row row = rowset.iterator().next();
-                        return new World(row.getInteger(0), row.getInteger(1));
-                    }
-                    default: throw new WebApplicationException(Response.Status.NOT_FOUND);
-                    }
+                    Row row = rowset.iterator().next();
+                    return new World(row.getInteger(0), row.getInteger(1));
                 });
     }
 
-    public CompletionStage<Void> update(World world) {
-        return pool.preparedQuery("UPDATE World SET randomNumber = $2 WHERE id = $1", Tuple.of(world.getId(), world.getRandomNumber()))
+    public CompletionStage<Void> update(World[] worlds) {
+        Arrays.sort(worlds);
+        List<Tuple> args = new ArrayList<>(worlds.length);
+        for(World world : worlds) {
+            args.add(Tuple.of(world.getId(), world.getRandomNumber()));
+        }
+        return clients.getPool().preparedBatch("UPDATE World SET randomNumber = $2 WHERE id = $1", args)
                 .thenApply(v -> null);
     }
 }
