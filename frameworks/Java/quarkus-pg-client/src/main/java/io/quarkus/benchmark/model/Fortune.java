@@ -1,7 +1,5 @@
 package io.quarkus.benchmark.model;
 
-import java.util.Objects;
-
 public final class Fortune {
 
     private int id;
@@ -28,21 +26,5 @@ public final class Fortune {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        Fortune fortune = (Fortune) o;
-        return id == fortune.id &&
-                Objects.equals(message, fortune.message);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, message);
     }
 }
