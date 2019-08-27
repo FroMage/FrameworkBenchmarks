@@ -33,4 +33,9 @@ public class WorldRepository {
         return world;
     }
 
+    public void hintBatchSize(int count) {
+        Session s = em.unwrap(Session.class);
+        s.setJdbcBatchSize( count );
+    }
+
 }

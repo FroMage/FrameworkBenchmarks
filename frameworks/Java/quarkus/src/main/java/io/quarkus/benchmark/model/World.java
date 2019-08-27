@@ -28,19 +28,4 @@ public class World {
         this.randomNumber = randomNumber;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        World world = (World) o;
-        return id == world.id &&
-                randomNumber == world.randomNumber;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, randomNumber);
-    }
 }

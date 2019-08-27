@@ -44,7 +44,9 @@ public class DbResource {
     //Rules: https://github.com/TechEmpower/FrameworkBenchmarks/wiki/Project-Information-Framework-Tests-Overview#database-updates
     @Transactional
     public World[] updates(@QueryParam("queries") String queries) {
-        var worlds = new World[parseQueryCount(queries)];
+        final int count = parseQueryCount( queries );
+        var worlds = new World[count];
+        worldRepository.hintBatchSize(count);
         Arrays.setAll(worlds, i -> {
             World world = worldRepository.readWriteWorld(randomWorldNumber());
             world.setRandomNumber(randomWorldNumber());
