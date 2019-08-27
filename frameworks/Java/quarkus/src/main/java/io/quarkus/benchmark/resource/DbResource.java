@@ -28,19 +28,21 @@ public class DbResource {
     @GET
     @Path("/db")
     public World db() {
-        return randomWorld();
+        return randomWorldForRead();
     }
 
     @GET
     @Path("/queries")
     public World[] queries(@QueryParam("queries") String queries) {
         var worlds = new World[parseQueryCount(queries)];
-        Arrays.setAll(worlds, i -> randomWorld());
+        Arrays.setAll(worlds, i -> randomWorldForRead());
         return worlds;
     }
 
     @GET
     @Path("/updates")
+    //Rules: https://github.com/TechEmpower/FrameworkBenchmarks/wiki/Project-Information-Framework-Tests-Overview#database-updates
+    @Transactional
     public World[] updates(@QueryParam("queries") String queries) {
         var worlds = new World[parseQueryCount(queries)];
         Arrays.setAll(worlds, i -> {
@@ -54,8 +56,8 @@ public class DbResource {
         return worlds;
     }
 
-    private World randomWorld() {
-        return worldRepository.find(randomWorldNumber());
+    private World randomWorldForRead() {
+        return worldRepository.findReadonly(randomWorldNumber());
     }
 
     private int randomWorldNumber() {
