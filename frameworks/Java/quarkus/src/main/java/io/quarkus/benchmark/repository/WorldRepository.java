@@ -14,8 +14,8 @@ public class WorldRepository {
     @Inject
     EntityManager em;
 
-    public World find(int id) {
-        return em.find(World.class, id);
+    public World readWriteWorld(int id) {
+        return em.find(World.class, id, LockModeType.PESSIMISTIC_WRITE);
     }
 
     @Transactional

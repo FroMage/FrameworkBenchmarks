@@ -46,7 +46,7 @@ public class DbResource {
     public World[] updates(@QueryParam("queries") String queries) {
         var worlds = new World[parseQueryCount(queries)];
         Arrays.setAll(worlds, i -> {
-            World world = randomWorld();
+            World world = worldRepository.readWriteWorld(randomWorldNumber());
             world.setRandomNumber(randomWorldNumber());
             return world;
         });
