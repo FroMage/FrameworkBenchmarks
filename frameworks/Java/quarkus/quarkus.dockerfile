@@ -1,7 +1,7 @@
 FROM maven:3.6.1-jdk-11-slim as maven
 WORKDIR /quarkus
-RUN mkdir -p /root/.m2/repository/io/quarkus
-RUN mkdir -p /root/.m2/repository/io/vertx
+RUN mkdir -p /root/.m2/repository/io
+RUN mkdir -p /root/.m2/repository/org
 COPY m2-quarkus /root/.m2/repository/io/quarkus
 COPY m2-vertx /root/.m2/repository/io/vertx
 COPY m2-hibernate /root/.m2/repository/org/hibernate
