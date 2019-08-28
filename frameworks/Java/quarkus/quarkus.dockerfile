@@ -4,6 +4,7 @@ RUN mkdir -p /root/.m2/repository/io/quarkus
 RUN mkdir -p /root/.m2/repository/io/vertx
 COPY m2-quarkus /root/.m2/repository/io/quarkus
 COPY m2-vertx /root/.m2/repository/io/vertx
+COPY m2-hibernate /root/.m2/repository/org/hibernate
 COPY pom.xml pom.xml
 RUN mvn dependency:go-offline -q
 COPY src src
