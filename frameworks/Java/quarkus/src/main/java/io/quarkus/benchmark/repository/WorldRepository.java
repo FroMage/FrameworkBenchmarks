@@ -6,6 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
 
+import org.hibernate.FlushMode;
+import org.hibernate.Session;
+
 import io.quarkus.benchmark.model.World;
 
 @ApplicationScoped
