@@ -8,7 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import io.quarkus.benchmark.model.Fortune;
-import io.reactiverse.pgclient.Row;
+import io.vertx.sqlclient.Row;
 
 @ApplicationScoped
 public class FortuneRepository {

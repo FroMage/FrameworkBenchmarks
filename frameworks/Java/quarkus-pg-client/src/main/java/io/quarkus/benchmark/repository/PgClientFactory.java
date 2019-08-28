@@ -11,10 +11,12 @@ import javax.inject.Inject;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import io.reactiverse.axle.pgclient.PgClient;
-import io.reactiverse.axle.pgclient.PgPool;
-import io.reactiverse.pgclient.PgPoolOptions;
 import io.vertx.axle.core.Vertx;
+import io.vertx.axle.pgclient.PgPool;
+import io.vertx.axle.sqlclient.SqlClient;
+import io.vertx.pgclient.PgConnectOptions;
+import io.vertx.sqlclient.PoolOptions;
+import io.vertx.sqlclient.SqlConnectOptions;
 
 @ApplicationScoped
 public class PgClientFactory {
@@ -34,30 +36,31 @@ public class PgClientFactory {
     @Produces
     @ApplicationScoped
     public PgClients pgClients() {
-        List<PgClient> clients = new ArrayList<>();
+        List<SqlClient> clients = new ArrayList<>();
         List<PgPool> pools = new ArrayList<>();
 
         for (int i = 0; i < Runtime.getRuntime().availableProcessors(); i++) {
-            clients.add(pgClient(vertx, 1));
-            pools.add(pgClient(vertx, 4));
+            clients.add(sqlClient(vertx, 1));
+            pools.add(sqlClient(vertx, 4));
         }
 
         return new PgClients(clients, pools);
     }
 
 
-    private PgPool pgClient(Vertx vertx, int size) {
-        PgPoolOptions options = new PgPoolOptions();
+    private PgPool sqlClient(Vertx vertx, int size) {
+        PoolOptions options = new PoolOptions();
+        PgConnectOptions connectOptions = new PgConnectOptions();
         // vertx-reactive:postgresql://tfb-database:5432/hello_world
         Matcher matcher = Pattern.compile("vertx-reactive:postgresql://([-a-zA-Z]+):([0-9]+)/(.*)").matcher(url);
         matcher.matches();
-        options.setDatabase(matcher.group(3));
-        options.setHost(matcher.group(1));
-        options.setPort(Integer.parseInt(matcher.group(2)));
-        options.setUser(user);
-        options.setPassword(pass);
-        options.setCachePreparedStatements(true);
+        connectOptions.setDatabase(matcher.group(3));
+        connectOptions.setHost(matcher.group(1));
+        connectOptions.setPort(Integer.parseInt(matcher.group(2)));
+        connectOptions.setUser(user);
+        connectOptions.setPassword(pass);
+        connectOptions.setCachePreparedStatements(true);
         options.setMaxSize(size);
-        return PgClient.pool(vertx, options);
+        return PgPool.pool(vertx, connectOptions, options);
     }
 }

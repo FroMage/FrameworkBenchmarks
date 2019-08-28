@@ -9,8 +9,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import io.quarkus.benchmark.model.World;
-import io.reactiverse.axle.pgclient.Row;
-import io.reactiverse.axle.pgclient.Tuple;
+import io.vertx.axle.sqlclient.Row;
+import io.vertx.axle.sqlclient.Tuple;
 
 @ApplicationScoped
 public class WorldRepository {
