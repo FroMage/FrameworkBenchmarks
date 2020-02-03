@@ -16,6 +16,11 @@ import io.quarkus.scheduler.Scheduled;
 public class ServerHeaderFilter implements ContainerResponseFilter {
 
     private String date;
+    
+    
+    public ServerHeaderFilter() {
+        increment();
+    }
 
     @Scheduled(every="1s")
     void increment() {
