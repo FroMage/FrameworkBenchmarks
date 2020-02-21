@@ -3,14 +3,18 @@ WORKDIR /quarkus
 RUN mkdir -p /root/.m2/repository/io
 RUN mkdir -p /root/.m2/repository/org/jboss
 COPY m2-quarkus /root/.m2/repository/io/quarkus
+COPY m2-jboss-threads /root/.m2/repository/org/jboss/threads
 COPY m2-resteasy /root/.m2/repository/org/jboss/resteasy
 COPY pom.xml pom.xml
 RUN mvn dependency:go-offline -q
 COPY src src
+RUN mvn dependency:list
 RUN mvn package -q
 
 FROM openjdk:11.0.3-jdk-slim
 WORKDIR /quarkus
 COPY --from=maven /quarkus/target/lib lib
 COPY --from=maven /quarkus/target/benchmark-1.0-SNAPSHOT-runner.jar app.jar
-CMD ["java", "-server", "-XX:+UseNUMA", "-XX:+UseParallelGC", "-jar", "app.jar"]
+#CMD ["java", "-server", "-XX:+UseNUMA", "-XX:+UseParallelGC", "-Djboss.threads.eqe.tail-lock=false", "-Djboss.threads.eqe.head-lock=false", "-jar", "app.jar"]
+CMD ["java", "-server", "-XX:+UseNUMA", "-XX:+UseParallelGC", "-Djboss.threads.eqe.tail-lock=false", "-Djboss.threads.eqe.head-lock=false", "-Djboss.threads.eqe.park-spins=256", "-Djboss.threads.eqe.park-yields=2", "-jar", "app.jar"]
+#CMD ["java", "-server", "-XX:+UseNUMA", "-XX:+UseParallelGC", "-jar", "app.jar"]
