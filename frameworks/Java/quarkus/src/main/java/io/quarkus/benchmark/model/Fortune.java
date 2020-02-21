@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public final class Fortune {
+public class Fortune {
 
     @Id
     private int id;
