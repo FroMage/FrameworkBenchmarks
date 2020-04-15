@@ -35,20 +35,21 @@ public class PgClientFactory {
 	@Produces
 	@ApplicationScoped
 	public PgClients pgClients() {
-		final int n = Runtime.getRuntime().availableProcessors();
-		List<SqlClient> clients = new ArrayList<>(n);
-		List<PgPool> pools = new ArrayList<>(n);
-
-		for (int i = 0; i < n; i++) {
-			clients.add(sqlClient(vertx, 1));
-			pools.add(sqlClient(vertx, 4));
-		}
-
-		return new PgClients(clients, pools);
+//		final int n = Runtime.getRuntime().availableProcessors();
+//		List<SqlClient> clients = new ArrayList<>(n);
+//		List<PgPool> pools = new ArrayList<>(n);
+//
+//		for (int i = 0; i < n; i++) {
+//			clients.add(sqlClient(vertx, 1));
+//			pools.add(sqlClient(vertx, 4));
+//		}
+//
+//		return new PgClients(clients, pools);
+	    return new PgClients(this);
 	}
 
 
-	private PgPool sqlClient(Vertx vertx, int size) {
+	PgPool sqlClient(int size) {
 		PoolOptions options = new PoolOptions();
 		PgConnectOptions connectOptions = new PgConnectOptions();
 		// vertx-reactive:postgresql://tfb-database:5432/hello_world
