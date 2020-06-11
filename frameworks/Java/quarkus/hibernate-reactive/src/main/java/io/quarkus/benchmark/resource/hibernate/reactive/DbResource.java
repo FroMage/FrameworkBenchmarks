@@ -1,9 +1,7 @@
 package io.quarkus.benchmark.resource.hibernate.reactive;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -35,14 +33,9 @@ public class DbResource extends BaseResource {
     @Route(path = "queries")
     public void queries(RoutingContext rc) {
         var queries = rc.request().getParam("queries");
-        var worlds = new Uni[parseQueryCount(queries)];
-        Arrays.setAll(worlds, i -> {
-            return randomWorld();
-        });
-
-        Uni<List<World>> listUni = Uni.combine().all().unis(worlds).combinedWith(l -> (List<World>)l);
-        listUni.subscribe().with(list -> sendJson(rc, list),
-                                  t -> handleFail(rc, t));
+        worldRepository.inSession(session -> randomWorldForRead(session, parseQueryCount(queries)))
+        .subscribe().with(list -> sendJson(rc, list),
+                          t -> handleFail(rc, t));
     }
 
     //Rules: https://github.com/TechEmpower/FrameworkBenchmarks/wiki/Project-Information-Framework-Tests-Overview#database-updates
