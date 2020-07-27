@@ -1,49 +1,49 @@
 package io.quarkus.benchmark.resource.pgclient;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 import io.quarkus.benchmark.model.World;
 import io.quarkus.benchmark.repository.pgclient.WorldRepository;
-import io.quarkus.vertx.web.Route;
 import io.smallrye.mutiny.Uni;
-import io.smallrye.mutiny.groups.UniAndGroupIterable;
-import io.vertx.ext.web.RoutingContext;
 
-
-@ApplicationScoped
-public class DbResource extends BaseResource {
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/")
+public class DbResource {
 
     @Inject
     WorldRepository worldRepository;
 
-    @Route(path = "db")
-    public void db(RoutingContext rc) {
-        randomWorld().subscribe().with(world -> sendJson(rc, world),
-                                       t -> handleFail(rc, t));
+    @GET
+    @Path("db")
+    public Uni<World> db() {
+        return randomWorld();
     }
 
-    @Route(path = "queries")
-    public void queries(RoutingContext rc) {
-        var queries = rc.request().getParam("queries");
+    @GET
+    @Path("queries")
+    public Uni<List<World>> queries(@QueryParam("queries") String queries) {
         var worlds = new Uni[parseQueryCount(queries)];
         var ret = new World[worlds.length];
         Arrays.setAll(worlds, i -> {
             return randomWorld().map(w -> ret[i] = w);
         });
 
-        Uni.combine().all().unis(worlds)
-        .combinedWith(v -> Arrays.asList(ret))
-        .subscribe().with(list -> sendJson(rc, list),
-                          t -> handleFail(rc, t));
+        return Uni.combine().all().unis(worlds)
+                .combinedWith(v -> Arrays.asList(ret));
     }
 
-    @Route(path = "updates")
-    public void updates(RoutingContext rc) {
-        var queries = rc.request().getParam("queries");
+    @GET
+    @Path("updates")
+    public Uni<List<World>> updates(@QueryParam("queries") String queries) {
         var worlds = new Uni[parseQueryCount(queries)];
         var ret = new World[worlds.length];
         Arrays.setAll(worlds, i -> {
@@ -54,12 +54,10 @@ public class DbResource extends BaseResource {
             });
         });
 
-        Uni.combine().all().unis(worlds)
+        return Uni.combine().all().unis(worlds)
         .combinedWith(v -> null)
         .flatMap(v -> worldRepository.update(ret))
-        .map(v -> Arrays.asList(ret))
-        .subscribe().with(list -> sendJson(rc, list),
-                          t -> handleFail(rc, t));
+        .map(v -> Arrays.asList(ret));
     }
 
     private Uni<World> randomWorld() {
