@@ -10,10 +10,8 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.Provider;
 
-import io.quarkus.qrs.DoesNotChangeWriter;
 import io.quarkus.scheduler.Scheduled;
 
-@DoesNotChangeWriter
 @Provider
 public class ServerHeaderFilter implements ContainerResponseFilter {
 
