@@ -19,10 +19,11 @@ import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import io.quarkus.benchmark.model.hibernate.Fortune;
 import io.quarkus.benchmark.repository.hibernate.FortuneRepository;
+import io.quarkus.qrs.Blocking;
 
 @ApplicationScoped
 @Path("/")
-@Produces(MediaType.TEXT_HTML)
+@Produces(MediaType.TEXT_HTML+"; charset=UTF-8")
 @Consumes(MediaType.APPLICATION_JSON)
 public class FortuneResource {
 
@@ -38,6 +39,7 @@ public class FortuneResource {
         fortuneComparator = Comparator.comparing(fortune -> fortune.getMessage());
     }
 
+    @Blocking
     @GET
     @Path("/fortunes")
     public String fortunes() {

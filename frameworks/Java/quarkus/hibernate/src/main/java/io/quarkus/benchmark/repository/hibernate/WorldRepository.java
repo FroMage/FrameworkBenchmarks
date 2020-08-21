@@ -46,6 +46,7 @@ public class WorldRepository {
         }
     }
 
+    @Transactional
     public void updateAll(Collection<World> worlds) {
         try (Session s = sf.openSession()) {
             s.setJdbcBatchSize(worlds.size());

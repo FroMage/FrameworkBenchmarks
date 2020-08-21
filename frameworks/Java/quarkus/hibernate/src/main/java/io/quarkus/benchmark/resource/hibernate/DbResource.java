@@ -2,6 +2,7 @@ package io.quarkus.benchmark.resource.hibernate;
 
 import io.quarkus.benchmark.model.hibernate.World;
 import io.quarkus.benchmark.repository.hibernate.WorldRepository;
+import io.quarkus.qrs.Blocking;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -26,6 +27,7 @@ public class DbResource {
     @Inject
     WorldRepository worldRepository;
 
+    @Blocking
     @GET
     @Path("/db")
     public World db() {
@@ -34,6 +36,7 @@ public class DbResource {
         return world;
     }
 
+    @Blocking
     @GET
     @Path("/queries")
     public World[] queries(@QueryParam("queries") String queries) {
@@ -42,6 +45,7 @@ public class DbResource {
         return worlds;
     }
 
+    @Blocking
     @GET
     @Path("/updates")
     //Rules: https://github.com/TechEmpower/FrameworkBenchmarks/wiki/Project-Information-Framework-Tests-Overview#database-updates
@@ -64,6 +68,7 @@ public class DbResource {
         return worlds.toArray(new World[0]);
     }
 
+    @Blocking
     @GET
     @Path( "/createdata" )
     public String createData() {
