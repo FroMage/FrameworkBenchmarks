@@ -35,7 +35,7 @@ public class DbResource extends BaseResource {
             return randomWorld().map(w -> ret[i] = w);
         });
 
-        ((UniAndGroupIterable<Void>)Uni.combine().all().unis(worlds))
+        Uni.combine().all().unis(worlds)
         .combinedWith(v -> Arrays.asList(ret))
         .subscribe().with(list -> sendJson(rc, list),
                           t -> handleFail(rc, t));
@@ -54,7 +54,7 @@ public class DbResource extends BaseResource {
             });
         });
 
-        ((UniAndGroupIterable<Void>)Uni.combine().all().unis(worlds))
+        Uni.combine().all().unis(worlds)
         .combinedWith(v -> null)
         .flatMap(v -> worldRepository.update(ret))
         .map(v -> Arrays.asList(ret))
