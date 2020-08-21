@@ -9,11 +9,12 @@ import io.vertx.core.buffer.Buffer;
 
 @Path("/plaintext")
 public class PlaintextResource {
-    private static final Buffer HELLO = Buffer.buffer("Hello, World!");
+    private static final String HELLO_WORLD = "Hello, world!";
+    private static final Buffer HELLO_WORLD_BUFFER = Buffer.factory.directBuffer(HELLO_WORLD, "UTF-8");
 
     @Produces(MediaType.TEXT_PLAIN)
     @GET
     public Buffer plaintext() {
-        return HELLO;
+        return HELLO_WORLD_BUFFER;
     }
 }
