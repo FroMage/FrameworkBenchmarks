@@ -23,7 +23,7 @@ public class ServerHeaderFilter implements ContainerResponseFilter {
     
     private CharSequence date;
     @Inject
-    private RoutingContext ctx;
+    RoutingContext ctx;
 
     @Scheduled(every="1s")
     void increment() {
