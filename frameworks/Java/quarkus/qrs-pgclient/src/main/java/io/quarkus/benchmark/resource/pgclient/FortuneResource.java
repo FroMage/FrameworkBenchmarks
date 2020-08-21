@@ -17,7 +17,7 @@ import io.quarkus.benchmark.model.Fortune;
 import io.quarkus.benchmark.repository.pgclient.FortuneRepository;
 import io.smallrye.mutiny.Uni;
 
-@Path("/")
+@Path("/fortunes")
 public class FortuneResource  {
 
     @Inject
@@ -34,7 +34,6 @@ public class FortuneResource  {
 
     @Produces("text/html; charset=UTF-8")
     @GET
-    @Path("fortunes")
     public Uni<String> fortunes() {
         return repository.findAll()
                 .map(fortunes -> {

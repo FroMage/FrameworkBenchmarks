@@ -7,13 +7,12 @@ import javax.ws.rs.core.MediaType;
 
 import io.vertx.core.buffer.Buffer;
 
-@Path("/")
+@Path("/plaintext")
 public class PlaintextResource {
     private static final Buffer HELLO = Buffer.buffer("Hello, World!");
 
     @Produces(MediaType.TEXT_PLAIN)
     @GET
-    @Path("plaintext")
     public Buffer plaintext() {
         return HELLO;
     }
