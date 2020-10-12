@@ -71,7 +71,7 @@
         "notes": "",
         "versus": "Netty"
       },
-      "qrs-pgclient": {
+      "rest-pgclient": {
         "json_url": "/json",
         "db_url": "/db",
         "query_url": "/queries?queries=",
@@ -86,11 +86,11 @@
         "language": "Java",
         "flavor": "None",
         "orm": "Micro",
-        "platform": "QRS",
+        "platform": "Quarkus-REST",
         "webserver": "Vertx",
         "os": "Linux",
         "database_os": "Linux",
-        "display_name": "quarkus-qrs-pgclient",
+        "display_name": "quarkus-rest-pgclient",
         "notes": "",
         "versus": "Netty"
       }

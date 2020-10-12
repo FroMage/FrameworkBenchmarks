@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>io.quarkus.benchmark</groupId>
-    <artifactId>qrs-pgclient</artifactId>
+    <artifactId>quarkus-rest-pgclient</artifactId>
 
     <dependencies>
         <dependency>
@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-qrs</artifactId>
+            <artifactId>quarkus-rest</artifactId>
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
