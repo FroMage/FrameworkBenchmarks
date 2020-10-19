@@ -19,7 +19,7 @@ import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import io.quarkus.benchmark.model.hibernate.Fortune;
 import io.quarkus.benchmark.repository.hibernate.FortuneRepository;
-import io.quarkus.qrs.Blocking;
+import io.quarkus.rest.Blocking;
 
 @ApplicationScoped
 @Path("/")

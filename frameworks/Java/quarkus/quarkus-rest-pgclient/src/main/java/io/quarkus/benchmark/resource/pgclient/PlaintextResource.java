@@ -5,8 +5,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import io.quarkus.rest.RequireCDIRequestScope;
 import io.vertx.core.buffer.Buffer;
 
+@RequireCDIRequestScope(false)
 @Path("/plaintext")
 public class PlaintextResource {
     private static final String HELLO_WORLD = "Hello, world!";

@@ -5,7 +5,7 @@ COPY base/pom.xml base/pom.xml
 COPY hibernate/pom.xml hibernate/pom.xml
 COPY hibernate-reactive/pom.xml hibernate-reactive/pom.xml
 COPY pgclient/pom.xml pgclient/pom.xml
-COPY qrs-pgclient/pom.xml qrs-pgclient/pom.xml
+COPY quarkus-rest-pgclient/pom.xml quarkus-rest-pgclient/pom.xml
 
 RUN mkdir -p /root/.m2/repository/io
 COPY m2-quarkus /root/.m2/repository/io/quarkus
@@ -16,7 +16,7 @@ COPY base/src/main/resources base/src/main/resources
 COPY hibernate/src hibernate/src
 COPY hibernate-reactive/src hibernate-reactive/src
 COPY pgclient/src pgclient/src
-COPY qrs-pgclient/src qrs-pgclient/src
+COPY quarkus-rest-pgclient/src quarkus-rest-pgclient/src
 
 RUN mvn package -q -pl pgclient -am
 

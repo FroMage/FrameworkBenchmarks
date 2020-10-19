@@ -2,7 +2,7 @@ package io.quarkus.benchmark.resource.hibernate;
 
 import io.quarkus.benchmark.model.hibernate.World;
 import io.quarkus.benchmark.repository.hibernate.WorldRepository;
-import io.quarkus.qrs.Blocking;
+import io.quarkus.rest.Blocking;
 
 import java.util.Collection;
 import java.util.HashSet;

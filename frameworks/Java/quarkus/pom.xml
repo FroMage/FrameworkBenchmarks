@@ -19,7 +19,7 @@
         <module>hibernate</module>
         <module>hibernate-reactive</module>
         <module>pgclient</module>
-        <module>qrs-pgclient</module>
+        <module>quarkus-rest-pgclient</module>
     </modules>
 
     <dependencyManagement>
@@ -49,7 +49,7 @@
             <dependency>
                 <groupId>io.vertx</groupId>
                 <artifactId>vertx-web</artifactId>
-                <version>3.9.3-SNAPSHOT</version>
+                <version>3.9.3</version>
             </dependency>
             <!-- 
              -->
