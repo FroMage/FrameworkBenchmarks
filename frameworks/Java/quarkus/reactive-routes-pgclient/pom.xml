@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>io.quarkus.benchmark</groupId>
-    <artifactId>quarkus-rest-pgclient</artifactId>
+    <artifactId>reactive-routes-pgclient</artifactId>
 
     <dependencies>
         <dependency>
@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-rest</artifactId>
+            <artifactId>quarkus-vertx-web</artifactId>
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>

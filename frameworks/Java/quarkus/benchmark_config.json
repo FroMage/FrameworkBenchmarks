@@ -21,11 +21,11 @@
         "webserver": "Undertow",
         "os": "Linux",
         "database_os": "Linux",
-        "display_name": "Quarkus + Hibernate ORM",
+        "display_name": "Quarkus + RESTEasy + Hibernate ORM",
         "notes": "",
         "versus": "Netty"
       },
-      "hibernate-reactive": {
+      "reactive-routes-hibernate-reactive": {
         "json_url": "/json",
         "db_url": "/db",
         "query_url": "/queries?queries=",
@@ -44,11 +44,11 @@
         "webserver": "Vertx",
         "os": "Linux",
         "database_os": "Linux",
-        "display_name": "Quarkus + Hibernate Reactive",
+        "display_name": "Quarkus + Reactive Routes + Hibernate Reactive",
         "notes": "",
         "versus": "Netty"
       },
-      "pgclient": {
+      "reactive-routes-pgclient": {
         "json_url": "/json",
         "db_url": "/db",
         "query_url": "/queries?queries=",
@@ -67,7 +67,7 @@
         "webserver": "Vertx",
         "os": "Linux",
         "database_os": "Linux",
-        "display_name": "quarkus-pgclient",
+        "display_name": "Quarkus + Reactive Routes + PgClient",
         "notes": "",
         "versus": "Netty"
       },
@@ -90,7 +90,7 @@
         "webserver": "Vertx",
         "os": "Linux",
         "database_os": "Linux",
-        "display_name": "quarkus-rest-pgclient",
+        "display_name": "Quarkus REST + PgClient",
         "notes": "",
         "versus": "Netty"
       }

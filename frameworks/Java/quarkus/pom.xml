@@ -15,10 +15,9 @@
     </properties>
 
     <modules>
-        <module>base</module>
-        <module>hibernate</module>
-        <module>hibernate-reactive</module>
-        <module>pgclient</module>
+        <module>resteasy-hibernate</module>
+        <module>reactive-routes-hibernate-reactive</module>
+        <module>reactive-routes-pgclient</module>
         <module>quarkus-rest-pgclient</module>
     </modules>
 
@@ -51,8 +50,6 @@
                 <artifactId>vertx-web</artifactId>
                 <version>3.9.3</version>
             </dependency>
-            <!-- 
-             -->
         </dependencies>
     </dependencyManagement>
 
