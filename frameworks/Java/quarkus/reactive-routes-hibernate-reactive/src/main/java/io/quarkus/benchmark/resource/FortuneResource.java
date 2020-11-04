@@ -23,10 +23,12 @@ public class FortuneResource extends BaseResource {
     FortuneRepository repository;
 
     private final Mustache template;
+    private Comparator<Fortune> fortuneComparator;
 
     public FortuneResource() {
         MustacheFactory mf = new DefaultMustacheFactory();
         template = mf.compile("fortunes.mustache");
+        fortuneComparator = Comparator.comparing(fortune -> fortune.getMessage());
     }
 
     @Route(path = "fortunes")
@@ -34,7 +36,7 @@ public class FortuneResource extends BaseResource {
         repository.findAll()
         .subscribe().with( fortunes -> {
             fortunes.add(new Fortune(0, "Additional fortune added at request time."));
-            fortunes.sort(Comparator.comparing(fortune -> fortune.getMessage()));
+            fortunes.sort(fortuneComparator);
             StringWriter writer = new StringWriter();
             template.execute(writer, Collections.singletonMap("fortunes", fortunes));
             rc.response().putHeader("Content-Type", "text/html;charset=UTF-8");

@@ -9,7 +9,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <exec.mainClass>benchmark.Application</exec.mainClass>
-        <micronaut.version>1.2.7</micronaut.version>
+        <micronaut.version>2.1.1</micronaut.version>
     </properties>
     <repositories>
         <repository>
@@ -63,11 +63,7 @@
             <artifactId>micronaut-runtime</artifactId>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>io.micronaut</groupId>
-            <artifactId>micronaut-views</artifactId>
-            <scope>compile</scope>
-        </dependency>
+
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
@@ -79,32 +75,21 @@
             <artifactId>micronaut-inject-java</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>io.micronaut.configuration</groupId>
-            <artifactId>micronaut-postgres-reactive</artifactId>
-            <scope>compile</scope>
-        </dependency>
+
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.3.0</version>
         </dependency>
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-core</artifactId>
-            <version>3.5.4</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-codegen</artifactId>
-            <version>3.5.4</version>
-            <scope>compile</scope>
-        </dependency>
+    <dependency>
+      <groupId>io.micronaut.sql</groupId>
+      <artifactId>micronaut-vertx-pg-client</artifactId>
+      <scope>compile</scope>
+    </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-rx-java2</artifactId>
-            <version>3.5.4</version>
+            <version>3.9.3</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -112,7 +97,12 @@
             <artifactId>compiler</artifactId>
             <version>0.9.5</version>
         </dependency>
-        <dependency>
+    <dependency>
+      <groupId>io.micronaut.views</groupId>
+      <artifactId>micronaut-views-core</artifactId>
+      <scope>compile</scope>
+    </dependency>
+            <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>

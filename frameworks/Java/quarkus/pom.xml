@@ -19,6 +19,8 @@
         <module>reactive-routes-hibernate-reactive</module>
         <module>reactive-routes-pgclient</module>
         <module>quarkus-rest-pgclient</module>
+        <module>quarkus-rest-hibernate</module>
+        <module>quarkus-rest-hibernate-reactive</module>
     </modules>
 
     <dependencyManagement>

@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>io.quarkus.benchmark</groupId>
-    <artifactId>quarkus-rest-pgclient</artifactId>
+    <artifactId>quarkus-rest-hibernate-reactive</artifactId>
 
     <dependencies>
         <dependency>
@@ -20,6 +20,10 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-reactive-pg-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-hibernate-reactive</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>

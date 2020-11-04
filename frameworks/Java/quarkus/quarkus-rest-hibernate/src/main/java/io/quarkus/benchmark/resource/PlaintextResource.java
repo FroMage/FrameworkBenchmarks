@@ -5,15 +5,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/json")
-public class JsonResource  {
-
+@Path("/plaintext")
+public class PlaintextResource {
     private static final String HELLO = "Hello, World!";
 
-    @Produces(MediaType.APPLICATION_JSON)
     @GET
-    public Message json() {
-        return new Message(HELLO);
+    @Produces(MediaType.TEXT_PLAIN)
+    public String plaintext() {
+        return HELLO;
     }
 }
-

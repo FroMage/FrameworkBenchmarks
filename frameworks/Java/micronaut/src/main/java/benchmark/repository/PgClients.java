@@ -1,19 +1,20 @@
 package benchmark.repository;
 
-import io.reactiverse.pgclient.PgClient;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-class PgClients {
-    private final Iterator<PgClient> iterator;
+import io.vertx.sqlclient.SqlClient;
 
-    PgClients(Collection<PgClient> clients) {
+class PgClients {
+    private final Iterator<SqlClient> iterator;
+
+    PgClients(Collection<SqlClient> clients) {
         iterator = Stream.generate(() -> clients).flatMap(Collection::stream).iterator();
     }
 
-    synchronized PgClient getOne() {
+    synchronized SqlClient getOne() {
         return iterator.next();
     }
 }
