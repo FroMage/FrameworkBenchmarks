@@ -5,7 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 import javax.inject.Singleton;
 
-import io.quarkus.rest.ContainerResponseFilter;
+import org.jboss.resteasy.reactive.ContainerResponseFilter;
+
 import io.quarkus.scheduler.Scheduled;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.http.HttpServerResponse;
